@@ -16,7 +16,8 @@ const questions = [
     }
 ];
 
-let currentQuestionIndex = 0;
+
+let currentQuestionIndex = parseInt(localStorage.getItem('currentQuestionIndex')) || 0;
 
 const questionElement = document.getElementById('question');
 const answerButtons = document.querySelectorAll('.answer');
@@ -44,10 +45,13 @@ function checkAnswer(selectedIndex) {
 nextButton.onclick = () => {
     currentQuestionIndex++;
     if (currentQuestionIndex < questions.length) {
+        localStorage.setItem('currentQuestionIndex', currentQuestionIndex);
         loadQuestion();
         nextButton.style.display = 'none';
     } else {
         alert("You've completed the quiz!");
+        localStorage.removeItem('currentQuestionIndex');
+        currentQuestionIndex = 0; 
     }
 };
 
